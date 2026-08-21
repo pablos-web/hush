@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUSH — Tech That Doesn't Try So Hard</title>
+    <meta name="description" content="HUSH — perangkat tech buat kamu yang capek sama gadget berisik. Clean, minim distraksi, tetap ngena.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ink: '#0A0A0A',
+                        bone: '#F5F4EF',
+                        accent: '#C7FF3D',
+                        muted: '#8B8B85',
+                    },
+                    fontFamily: {
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-bone text-ink antialiased transition-colors duration-300 dark:bg-ink dark:text-bone" x-data="{ mobileOpen: false, cartCount: 0, darkMode: false }">
+
+    <!-- Noise overlay -->
+    <div class="grain fixed inset-0 pointer-events-none opacity-[0.06] z-[100]"></div>
+
+    <!-- NAV -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-bone/80 dark:bg-ink/80 border-b border-ink/10 dark:border-bone/10 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 font-display font-bold tracking-tight text-xl">
+                <span class="w-2 h-2 rounded-full bg-accent"></span>
+                HUSH<span class="text-muted">.</span>
+            </a>
+
+            <ul class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider">
+                <li><a href="#products" class="hover:text-accent transition">Products</a></li>
+                <li><a href="#story" class="hover:text-accent transition">Story</a></li>
+                <li><a href="#specs" class="hover:text-accent transition">Specs</a></li>
+                <li><a href="#contact" class="hover:text-accent transition">Contact</a></li>
+            </ul>
+
+            <div class="flex items-center gap-4">
+                <button @click="darkMode = !darkMode; document.documentElement.classList.toggle('dark', darkMode)"
+                        class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-ink/15 dark:border-bone/15 hover:border-ink dark:hover:border-bone transition"
+                        aria-label="Toggle dark mode">
+                    <i data-lucide="sun" class="w-4 h-4" x-show="darkMode"></i>
+                    <i data-lucide="moon" class="w-4 h-4" x-show="!darkMode"></i>
+                </button>
+                <button class="hidden md:inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider px-3 py-2 rounded-full border border-ink/15 dark:border-bone/15 hover:border-ink dark:hover:border-bone transition">
+                    <i data-lucide="search" class="w-4 h-4"></i> Search
+                </button>
+                <button class="relative inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider px-3 py-2 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>Cart</span>
+                    <span class="ml-1 px-1.5 py-0.5 rounded-full bg-accent text-ink text-[10px] font-bold" x-text="cartCount"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+        <!-- Animated background blobs -->
+        <div class="absolute inset-0 -z-10">
+            <div class="drift absolute top-10 -left-20 w-[500px] h-[500px] rounded-full bg-accent/30 blur-3xl"></div>
+            <div class="drift absolute -bottom-20 right-0 w-[600px] h-[600px] rounded-full bg-ink/10 blur-3xl" style="animation-delay:-6s"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-32 grid lg:grid-cols-12 gap-10 items-center">
+            <!-- Left: copy -->
+            <div class="lg:col-span-7">
+                <div class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted mb-6 fade-up">
+                    <span class="w-1.5 h-1.5 bg-accent rounded-full"></span>
+                    New Drop · 08.2026
+                </div>
+
+                <h1 class="font-display text-6xl sm:text-7xl lg:text-8xl font-light leading-[0.95] tracking-tight fade-up delay-1">
+                    Built quiet.<br>
+                    <span class="font-medium italic">Runs loud.</span>
+                </h1>
+
+                <p class="mt-6 max-w-xl text-lg text-muted leading-relaxed fade-up delay-2">
+                    HUSH ngedesain perangkat personal biar nggak ada lagi jarak antara kamu sama ide-ide lo. No noise. No excuses.
+                </p>
+
+                <div class="mt-10 flex flex-wrap items-center gap-4 fade-up delay-3">
+                    <a href="#products" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition font-medium">
+                        Shop the drop
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition group-hover:translate-x-1"></i>
+                    </a>
+                    <a href="#story" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink/20 hover:border-ink transition font-medium">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        Watch film
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-16 grid grid-cols-3 gap-6 max-w-md fade-up delay-3">
+                    <div>
+                        <div class="font-display text-3xl font-medium">12k+</div>
+                        <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-1">Pelanggan</div>
+                    </div>
+                    <div>
+                        <div class="font-display text-3xl font-medium">4.9</div>
+                        <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-1">Rating</div>
+                    </div>
+                    <div>
+                        <div class="font-display text-3xl font-medium">24m</div>
+                        <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-1">Garansi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: featured product -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative aspect-square rounded-3xl bg-ink text-bone p-8 glow-ring overflow-hidden">
+                    <div class="absolute top-4 right-4 font-mono text-[10px] uppercase tracking-widest text-bone/50">HUSH · 01</div>
+
+                    <!-- Mock product: minimalist device -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-3/4 aspect-[3/4] rounded-2xl bg-gradient-to-br from-bone/10 to-bone/5 border border-bone/20 relative overflow-hidden">
+                            <div class="absolute top-6 left-6 w-12 h-1 rounded-full bg-accent"></div>
+                            <div class="absolute top-12 left-6 w-24 h-1 rounded-full bg-bone/30"></div>
+                            <div class="absolute bottom-6 left-6 right-6 flex justify-between font-mono text-[10px] uppercase tracking-widest text-bone/60">
+                                <span>HUSH</span>
+                                <span>v1.0</span>
+                            </div>
+                            <div class="absolute inset-0 grid place-items-center">
+                                <i data-lucide="zap" class="w-16 h-16 text-accent"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                        <div>
+                            <div class="font-mono text-[10px] uppercase tracking-widest text-bone/50">Aether Buds</div>
+                            <div class="font-display text-2xl font-medium mt-1">$249</div>
+                        </div>
+                        <button @click="cartCount++" class="w-12 h-12 rounded-full bg-accent text-ink grid place-items-center hover:scale-110 transition">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Floating badge -->
+                <div class="absolute -bottom-4 -left-4 bg-accent text-ink rounded-full px-5 py-2 font-mono text-xs uppercase tracking-widest shadow-lg">
+                    Best seller
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="border-y border-ink/10 py-6 overflow-hidden marquee-track bg-ink text-bone">
+        <div class="marquee whitespace-nowrap flex gap-12 font-display text-4xl sm:text-5xl font-light">
+            <span class="flex items-center gap-12">
+                <span>Quiet by design</span><span class="text-accent">✦</span>
+                <span>Built to last</span><span class="text-accent">✦</span>
+                <span>24-month warranty</span><span class="text-accent">✦</span>
+                <span>Carbon neutral</span><span class="text-accent">✦</span>
+                <span>Free shipping</span><span class="text-accent">✦</span>
+            </span>
+            <span class="flex items-center gap-12" aria-hidden="true">
+                <span>Quiet by design</span><span class="text-accent">✦</span>
+                <span>Built to last</span><span class="text-accent">✦</span>
+                <span>24-month warranty</span><span class="text-accent">�</span>
+                <span>Carbon neutral</span><span class="text-accent">✦</span>
+                <span>Free shipping</span><span class="text-accent">✦</span>
+            </span>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
+        <div class="flex items-end justify-between mb-12">
+            <div>
+                <div class="font-mono text-xs uppercase tracking-widest text-muted mb-3">The Catalogue</div>
+                <h2 class="font-display text-5xl lg:text-6xl font-light tracking-tight">Picks of the season.</h2>
+            </div>
+            <a href="#" class="hidden sm:inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:text-accent transition">
+                View all <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <article class="product-card group bg-white dark:bg-ink dark:text-bone rounded-3xl p-6 border border-ink/5 dark:border-bone/10 transition-colors duration-300">
+                <div class="aspect-square rounded-2xl bg-bone grid place-items-center mb-6 relative overflow-hidden">
+                    <i data-lucide="headphones" class="w-24 h-24 text-ink transition group-hover:scale-110"></i>
+                    <span class="absolute top-3 left-3 font-mono text-[10px] uppercase tracking-widest bg-ink text-bone px-2 py-1 rounded-full">New</span>
+                </div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-widest text-muted">Audio</div>
+                        <h3 class="font-display text-xl font-medium mt-1">Aether Buds Pro</h3>
+                    </div>
+                    <div class="font-display text-xl font-medium">$249</div>
+                </div>
+                <button @click="cartCount++" class="mt-4 w-full py-3 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition font-medium text-sm">
+                    Add to cart
+                </button>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="product-card group bg-ink text-bone rounded-3xl p-6">
+                <div class="aspect-square rounded-2xl bg-bone/5 grid place-items-center mb-6 relative overflow-hidden">
+                    <i data-lucide="watch" class="w-24 h-24 text-accent transition group-hover:scale-110"></i>
+                </div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-widest text-bone/50">Wearables</div>
+                        <h3 class="font-display text-xl font-medium mt-1">Pulse Watch</h3>
+                    </div>
+                    <div class="font-display text-xl font-medium text-accent">$399</div>
+                </div>
+                <button @click="cartCount++" class="mt-4 w-full py-3 rounded-full bg-accent text-ink hover:bg-bone transition font-medium text-sm">
+                    Add to cart
+                </button>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="product-card group bg-white dark:bg-ink dark:text-bone rounded-3xl p-6 border border-ink/5 dark:border-bone/10 transition-colors duration-300">
+                <div class="aspect-square rounded-2xl bg-bone grid place-items-center mb-6 relative overflow-hidden">
+                    <i data-lucide="speaker" class="w-24 h-24 text-ink transition group-hover:scale-110"></i>
+                </div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-widest text-muted">Audio</div>
+                        <h3 class="font-display text-xl font-medium mt-1">Halo Speaker</h3>
+                    </div>
+                    <div class="font-display text-xl font-medium">$179</div>
+                </div>
+                <button @click="cartCount++" class="mt-4 w-full py-3 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition font-medium text-sm">
+                    Add to cart
+                </button>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="product-card group bg-accent text-ink rounded-3xl p-6">
+                <div class="aspect-square rounded-2xl bg-ink/10 grid place-items-center mb-6 relative overflow-hidden">
+                    <i data-lucide="laptop" class="w-24 h-24 text-ink transition group-hover:scale-110"></i>
+                    <span class="absolute top-3 left-3 font-mono text-[10px] uppercase tracking-widest bg-ink text-accent px-2 py-1 rounded-full">Limited</span>
+                </div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-widest text-ink/70">Compute</div>
+                        <h3 class="font-display text-xl font-medium mt-1">Hush Laptop Air</h3>
+                    </div>
+                    <div class="font-display text-xl font-medium">$1,299</div>
+                </div>
+                <button @click="cartCount++" class="mt-4 w-full py-3 rounded-full bg-ink text-accent hover:bg-bone hover:text-ink transition font-medium text-sm">
+                    Add to cart
+                </button>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="product-card group bg-white dark:bg-ink dark:text-bone rounded-3xl p-6 border border-ink/5 dark:border-bone/10 transition-colors duration-300">
+                <div class="aspect-square rounded-2xl bg-bone grid place-items-center mb-6 relative overflow-hidden">
+                    <i data-lucide="camera" class="w-24 h-24 text-ink transition group-hover:scale-110"></i>
+                </div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-widest text-muted">Capture</div>
+                        <h3 class="font-display text-xl font-medium mt-1">Lume Cam Mini</h3>
+                    </div>
+                    <div class="font-display text-xl font-medium">$499</div>
+                </div>
+                <button @click="cartCount++" class="mt-4 w-full py-3 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition font-medium text-sm">
+                    Add to cart
+                </button>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="product-card group bg-white dark:bg-ink dark:text-bone rounded-3xl p-6 border border-ink/5 dark:border-bone/10 transition-colors duration-300">
+                <div class="aspect-square rounded-2xl bg-bone grid place-items-center mb-6 relative overflow-hidden">
+                    <i data-lucide="keyboard" class="w-24 h-24 text-ink transition group-hover:scale-110"></i>
+                </div>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <div class="font-mono text-xs uppercase tracking-widest text-muted">Input</div>
+                        <h3 class="font-display text-xl font-medium mt-1">Tactile Keys</h3>
+                    </div>
+                    <div class="font-display text-xl font-medium">$159</div>
+                </div>
+                <button @click="cartCount++" class="mt-4 w-full py-3 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition font-medium text-sm">
+                    Add to cart
+                </button>
+            </article>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="story" class="bg-ink text-bone">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-24 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="font-mono text-xs uppercase tracking-widest text-accent mb-4">Our Story</div>
+                <h2 class="font-display text-5xl lg:text-6xl font-light tracking-tight leading-tight">
+                    Tech should disappear<br>
+                    <span class="italic text-accent">into the work.</span>
+                </h2>
+                <p class="mt-6 text-bone/70 text-lg leading-relaxed max-w-lg">
+                    HUSH lahir dari satu pertanyaan simpel: kenapa gadget baru malah makin berisik? Kita balik ke nol — nggak ada notifikasi spam, nggak ada LED norak, nggak ada tombol yang nggak guna.
+                </p>
+                <div class="mt-8 grid grid-cols-2 gap-6 max-w-md">
+                    <div class="border-l border-bone/20 pl-4">
+                        <div class="font-display text-3xl font-medium text-accent">100%</div>
+                        <div class="font-mono text-[10px] uppercase tracking-widest text-bone/50 mt-1">Carbon neutral</div>
+                    </div>
+                    <div class="border-l border-bone/20 pl-4">
+                        <div class="font-display text-3xl font-medium text-accent">7yr</div>
+                        <div class="font-mono text-[10px] uppercase tracking-widest text-bone/50 mt-1">Avg. lifespan</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative aspect-square rounded-3xl bg-bone/5 border border-bone/10 grid place-items-center overflow-hidden">
+                <div class="absolute inset-0 drift opacity-50">
+                    <div class="absolute top-10 left-10 w-32 h-32 rounded-full bg-accent/20 blur-2xl"></div>
+                    <div class="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-accent/10 blur-3xl"></div>
+                </div>
+                <i data-lucide="cpu" class="w-40 h-40 text-accent relative"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECS -->
+    <section id="specs" class="max-w-7xl mx-auto px-6 lg:px-10 py-24">
+        <div class="text-center mb-16">
+            <div class="font-mono text-xs uppercase tracking-widest text-muted mb-3">Tech Specs</div>
+            <h2 class="font-display text-5xl lg:text-6xl font-light tracking-tight">Built like nothing else.</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 rounded-2xl border border-ink/10 dark:border-bone/10 transition-colors duration-300">
+                <i data-lucide="battery-charging" class="w-8 h-8 text-accent mb-4"></i>
+                <div class="font-display text-2xl font-medium">48hr</div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-2">Battery life</div>
+            </div>
+            <div class="p-6 rounded-2xl border border-ink/10 dark:border-bone/10 transition-colors duration-300">
+                <i data-lucide="wifi" class="w-8 h-8 text-accent mb-4"></i>
+                <div class="font-display text-2xl font-medium">WiFi 7</div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-2">Connectivity</div>
+            </div>
+            <div class="p-6 rounded-2xl border border-ink/10 dark:border-bone/10 transition-colors duration-300">
+                <i data-lucide="shield-check" class="w-8 h-8 text-accent mb-4"></i>
+                <div class="font-display text-2xl font-medium">IP68</div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-2">Dust & water</div>
+            </div>
+            <div class="p-6 rounded-2xl border border-ink/10 dark:border-bone/10 transition-colors duration-300">
+                <i data-lucide="leaf" class="w-8 h-8 text-accent mb-4"></i>
+                <div class="font-display text-2xl font-medium">92%</div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-muted mt-2">Recycled materials</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / CONTACT -->
+    <section id="contact" class="bg-accent text-ink">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-24 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="font-mono text-xs uppercase tracking-widest mb-3">Get Notified</div>
+                <h2 class="font-display text-5xl lg:text-6xl font-medium tracking-tight leading-tight">
+                    Drop berikutnya<br>segera hadir.
+                </h2>
+                <p class="mt-6 max-w-md text-ink/70 text-lg">
+                    Daftar buat akses awal, diskon launch, sama behind-the-scenes dari studio HUSH.
+                </p>
+            </div>
+
+            <form class="bg-bone rounded-3xl p-8 space-y-4" @submit.prevent>
+                <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-muted">Name</label>
+                    <input type="text" placeholder="Nama Anda" class="w-full mt-1 bg-transparent border-b border-ink/20 focus:border-ink outline-none py-2 text-lg">
+                </div>
+                <div>
+                    <label class="font-mono text-[10px] uppercase tracking-widest text-muted">Email</label>
+                    <input type="email" placeholder="kamu@email.com" class="w-full mt-1 bg-transparent border-b border-ink/20 focus:border-ink outline-none py-2 text-lg">
+                </div>
+                <button type="submit" class="w-full mt-4 py-3 rounded-full bg-ink text-bone hover:bg-accent hover:text-ink transition font-medium">
+                    Notify me
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-ink text-bone">
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center gap-2 font-display font-bold text-xl">
+                    <span class="w-2 h-2 rounded-full bg-accent"></span> HUSH<span class="text-muted">.</span>
+                </div>
+                <p class="mt-3 text-bone/60 text-sm max-w-xs">Future of personal tech. Built quiet, runs loud.</p>
+            </div>
+            <div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-bone/40 mb-3">Shop</div>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-accent transition">Audio</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Wearables</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Compute</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Accessories</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-bone/40 mb-3">Company</div>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-accent transition">About</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Press</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Careers</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="font-mono text-[10px] uppercase tracking-widest text-bone/40 mb-3">Follow</div>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-accent transition">Instagram</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Twitter / X</a></li>
+                    <li><a href="#" class="hover:text-accent transition">YouTube</a></li>
+                    <li><a href="#" class="hover:text-accent transition">Newsletter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-bone/10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-wrap justify-between items-center gap-4 font-mono text-[10px] uppercase tracking-widest text-bone/50">
+                <span>© 2026 HUSH Studio. All rights reserved. · Built by <a href="https://pablos-web.netlify.app" target="_blank" rel="noopener" class="hover:text-accent transition">pablos-web</a></span>
+                <span>Made with care · Jakarta → Berlin</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
